@@ -1,0 +1,2540 @@
+<html>
+
+<head>
+    <style type="text/css">
+        .turbo-progress-bar {
+            position: fixed;
+            display: block;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: #0076ff;
+            z-index: 9999;
+            transition:
+                width 300ms ease-out,
+                opacity 150ms 150ms ease-in;
+            transform: translate3d(0, 0, 0);
+        }
+    </style>
+    <style id="st_globalStyles">
+        /* MEDIA QUERIES */
+        .anima-desktop-only {
+            @media (max-width: 768px) {
+                display: none !important;
+            }
+        }
+
+        /* SCROLLBAR */
+
+        [dark-scroll]::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+        }
+
+        [dark-scroll]::-webkit-scrollbar-track-piece {
+            background-color: #2b2b2b;
+            border: 1px solid #1d1d1d;
+        }
+
+        [dark-scroll]::-webkit-scrollbar-thumb {
+            height: 10px;
+            background-color: #4d4d4d;
+        }
+
+        [dark-scroll]::-webkit-scrollbar-thumb:hover {
+            background-color: #5a5a5a;
+        }
+
+        /* LOAD PROGRESS */
+
+        .turbolinks-progress-bar {
+            height: 3px;
+            background-color: #ff6250;
+        }
+
+        /* GROUPING */
+
+        [data-id].ui-selecting {
+            box-shadow: inset 0 0 0 1px #4285f4 !important;
+        }
+
+        [data-id].ui-selected {
+            box-shadow: inset 0 0 0 1px #4285f4 !important;
+        }
+
+        /* CURSOR */
+
+        body[mode='comments'] * {
+            cursor: url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMzAiIHZpZXdCb3g9IjAgMCAzMCAzMCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZmlsbC1ydWxlPSJldmVub2RkIiBjbGlwLXJ1bGU9ImV2ZW5vZGQiIGQ9Ik00LjkxNjQ4IDIzLjQxMDlDNS40OTE1MyAyMi45ODg3IDUuOTMxNzkgMjIuMzkzNSA2LjIzMjggMjEuNjQwN0M0Ljc5MDY5IDE5LjczODMgNCAxNy4zOTMzIDQgMTQuOTk3NUM0IDguOTM0MSA4LjkzMjgyIDQgMTUuMDAyMiA0QzIxLjA3MTcgNCAyNiA4LjkzOTE5IDI2IDE1LjAwMjVDMjYgMjEuMDY1OSAyMS4wNjcyIDI2IDE0Ljk5NzggMjZDMTIuOTg5NiAyNiAxMS4wMzUzIDI1LjQ1NTcgOS4zMjM2NyAyNC40MjMxQzguNDI5NjUgMjQuOTU3MiA3LjQxNDM0IDI1LjIyNjggNi4zMDAxOCAyNS4yMjY4QzUuOTU0MjYgMjUuMjI2OCA1LjU5OTM1IDI1LjIwMTQgNS4yNTM0MiAyNS4xNDU0QzQuOTAzIDI1LjA4OTUgNC42Mjg5NiAyNC44MDQ2IDQuNTUyNTggMjQuNDE4QzQuNDc2MjEgMjQuMDI2NCA0LjYxOTk3IDIzLjYyOTYgNC45MTY0OCAyMy40MTA5WiIgZmlsbD0iI0ZGNjI1MCIvPgo8L3N2Zz4K') 0 24,
+                auto !important;
+        }
+
+        body[mode='code'] [data-id]:not(.hidden) {
+            cursor: default;
+        }
+
+        /* default node state */
+
+        body[mode='code'] [data-id]:not(.hidden),
+        body[mode='comments'] [data-id]:not(.hidden) {
+            pointer-events: all;
+        }
+
+        /* is_image */
+
+        body[mode='code'] [data-id].is_image [data-id],
+        body[mode='comments'] [data-id].is_image [data-id] {
+            pointer-events: none !important;
+        }
+
+        /* without a data-id or ignored */
+
+        [data-id].ignore,
+        body[mode='code'] *:not([data-id]) {
+            pointer-events: none !important;
+        }
+
+        /* disable transforms for ignored elements */
+
+
+        body[mode='code'] [data-id]:hover {
+            transform: none !important;
+        }
+
+        /* ANIMA BUTTONS */
+        .an-button {
+            position: relative;
+            height: 28px;
+            padding: 0 20px;
+            font-size: 14px;
+            border-radius: 4px;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            vertical-align: middle;
+            white-space: nowrap;
+            transition-property: all;
+            transition-duration: 100ms;
+            appearance: none;
+            cursor: pointer;
+            user-select: none;
+            transition: all 0.2s ease;
+            border-width: 0;
+        }
+
+        .an-button>div {
+            width: 100%;
+        }
+
+        .an-button.primary {
+            background: #ff6250;
+            color: #ffffff;
+        }
+
+        .an-button.primary:hover:not(:disabled) {
+            background: #e2412e;
+        }
+
+        .an-button.secondary {
+            background: transparent;
+            border: 1px solid #ff6250;
+            color: #ff6250;
+        }
+
+        .an-button.secondary:hover:not(:disabled) {
+            color: #ffffff;
+            background: #ff6250;
+        }
+
+        .an-button.rounded {
+            border-radius: 100px;
+        }
+
+        .an-button:disabled {
+            opacity: 0.5;
+        }
+
+        .an-button:disabled {
+            cursor: default;
+        }
+
+        .an-button:active,
+        .an-button:focus {
+            outline: none;
+        }
+    </style>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=1440, maximum-scale=1.0">
+    <link rel="shortcut icon" type="image/png" href="https://animaproject.s3.amazonaws.com/home/favicon.png">
+    <meta name="og:type" content="website">
+    <meta name="twitter:card" content="photo">
+    <script id="anima-load-script" src="load.js"></script>
+    <script id="anima-hotspots-script" src="hotspots.js"></script>
+    <style id="hotspots-styles">
+        .hotspot {
+            position: absolute;
+            border: 1px solid #2a9fd8;
+            background: rgba(0, 173, 255, 0.54);
+            opacity: 0;
+            z-index: -1;
+            pointer-events: none;
+        }
+    </style>
+    <script id="s_turbo" src="https://animaapp.s3.amazonaws.com/static/turbo.es2017-umd.js"></script>
+    <script id="anima-overrides-script" src="overrides.js"></script>
+    <script src="https://animaapp.s3.amazonaws.com/js/timeline.js"></script>
+    <style>
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+        @import url("https://fonts.googleapis.com/css?family=Jost:400,600|Sofia+Sans:400,600");
+
+        /* The following line is used to measure usage of this code. You can remove it if you want. */
+        @import url("https://px.animaapp.com/660386f4f5b296514cc3c90a.660386f5f5b296514cc3c90d.6YjoA16.hch.png");
+
+
+        .screen textarea:focus,
+        .screen input:focus {
+            outline: none;
+        }
+
+        .screen * {
+            -webkit-font-smoothing: antialiased;
+            box-sizing: border-box;
+        }
+
+        .screen div {
+            -webkit-text-size-adjust: none;
+        }
+
+        .component-wrapper a {
+            display: contents;
+            pointer-events: auto;
+            text-decoration: none;
+        }
+
+        .component-wrapper * {
+            -webkit-font-smoothing: antialiased;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+
+        .component-wrapper a *,
+        .component-wrapper input,
+        .component-wrapper video,
+        .component-wrapper iframe {
+            pointer-events: auto;
+        }
+
+        .component-wrapper.not-ready,
+        .component-wrapper.not-ready * {
+            visibility: hidden !important;
+        }
+
+        .screen a {
+            display: contents;
+            text-decoration: none;
+        }
+
+        .full-width-a {
+            width: 100%;
+        }
+
+        .full-height-a {
+            height: 100%;
+        }
+
+        .container-center-vertical {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .container-center-vertical>* {
+            flex-shrink: 0;
+            pointer-events: auto;
+        }
+
+        .container-center-horizontal {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            pointer-events: none;
+            width: 100%;
+        }
+
+        .container-center-horizontal>* {
+            flex-shrink: 0;
+            pointer-events: auto;
+        }
+
+        .auto-animated div {
+            --z-index: -1;
+            opacity: 0;
+            position: absolute;
+        }
+
+        .auto-animated input {
+            --z-index: -1;
+            opacity: 0;
+            position: absolute;
+        }
+
+        .auto-animated .container-center-vertical,
+        .auto-animated .container-center-horizontal {
+            opacity: 1;
+        }
+
+        .overlay-base {
+            display: none;
+            height: 100%;
+            opacity: 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        .overlay-base.animate-appear {
+            align-items: center;
+            animation: reveal 0.3s ease-in-out 1 normal forwards;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+        }
+
+        .overlay-base.animate-disappear {
+            animation: reveal 0.3s ease-in-out 1 reverse forwards;
+            display: block;
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        .overlay-base.animate-disappear * {
+            pointer-events: none;
+        }
+
+        @keyframes reveal {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .animate-nodelay {
+            animation-delay: 0s;
+        }
+
+        .align-self-flex-start {
+            align-self: flex-start;
+        }
+
+        .align-self-flex-end {
+            align-self: flex-end;
+        }
+
+        .align-self-flex-center {
+            align-self: flex-center;
+        }
+
+        .valign-text-middle {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .valign-text-bottom {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        .listeners-active,
+        .listeners-active * {
+            pointer-events: auto;
+        }
+
+        .hidden,
+        .hidden * {
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .smart-layers-pointers,
+        .smart-layers-pointers * {
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        .listeners-active-click,
+        .listeners-active-click * {
+            cursor: pointer;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --alto: #d9d9d9;
+            --black: #000000;
+            --malachite: #0bf03d;
+            --oxford-blue: #36454f;
+            --red: #f00b0b;
+            --white: #ffffff;
+
+            --font-size-l: 24px;
+            --font-size-m: 20px;
+            --font-size-s: 16px;
+            --font-size-xs: 15px;
+            --font-size-xxs: 14px;
+
+            --font-family-jost: "Jost", Helvetica;
+            --font-family-sofia_sans: "Sofia Sans", Helvetica;
+        }
+
+        .sofiasans-normal-oxford-blue-20px {
+            color: var(--oxford-blue);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .sofiasans-normal-oxford-blue-14px {
+            color: var(--oxford-blue);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-xxs);
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .sofiasans-normal-black-15px {
+            color: var(--black);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-xs);
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .sofiasans-normal-black-24px {
+            color: var(--black);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-l);
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .sofiasans-semi-bold-oxford-blue-20px {
+            color: var(--oxford-blue);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .jost-normal-black-24px {
+            color: var(--black);
+            font-family: var(--font-family-jost);
+            font-size: var(--font-size-l);
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .sofiasans-semi-bold-white-20px {
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        :root {}
+
+
+        /* screen - taskhub */
+
+        .taskhub {
+            background-color: #f1f4fb;
+            height: 1024px;
+            overflow: hidden;
+            overflow-x: hidden;
+            position: relative;
+            width: 1440px;
+        }
+
+        .taskhub .frame-1-zyHaWh {
+            background-color: var(--white);
+            height: 1018px;
+            left: 0px;
+            overflow: hidden;
+            position: absolute;
+            top: 0px;
+            width: 270px;
+        }
+
+        .taskhub .cog-outline-tJqh1S {
+            background-color: transparent;
+            height: 30px;
+            left: 43px;
+            position: absolute;
+            top: 716px;
+            width: 30px;
+        }
+
+        .taskhub .vector-tJqh1S {
+            height: 32px;
+            left: 40px;
+            top: 651px;
+            width: 32px;
+        }
+
+        .taskhub .user-group-outline-tJqh1S {
+            background-color: transparent;
+            height: 30px;
+            left: 41px;
+            position: absolute;
+            top: 545px;
+            width: 30px;
+        }
+
+        .taskhub .vector-znz9JC {
+            height: 26px;
+            left: 40px;
+            top: 482px;
+            width: 32px;
+        }
+
+        .taskhub .chart-bar-outline-tJqh1S {
+            top: 418px;
+        }
+
+        .taskhub .vector-8girqH {
+            height: 30px;
+            left: 40px;
+            top: 352px;
+            width: 29px;
+        }
+
+        .taskhub .vector-DxpObN {
+            height: 27px;
+            left: 40px;
+            top: 288px;
+            width: 30px;
+        }
+
+        .taskhub .chart-bar-outline-znz9JC {
+            top: 227px;
+        }
+
+        .taskhub .view-grid-outline-tJqh1S {
+            background-color: transparent;
+            height: 30px;
+            left: 41px;
+            position: absolute;
+            top: 162px;
+            width: 30px;
+        }
+
+        .taskhub .rectangle-2-tJqh1S {
+            background-color: #f1f4fb;
+            border-radius: 100px;
+            height: 42px;
+            left: 93px;
+            position: absolute;
+            top: 900px;
+            width: 84px;
+        }
+
+        .taskhub .ellipse-1-tJqh1S {
+            background-color: #0b83d9;
+            border-radius: 20px/23px;
+            height: 46px;
+            left: 96px;
+            position: absolute;
+            top: 896px;
+            width: 40px;
+        }
+
+        .taskhub .sun-outline-tJqh1S {
+            background-color: transparent;
+            height: 24px;
+            left: 104px;
+            position: absolute;
+            top: 907px;
+            width: 24px;
+        }
+
+        .taskhub .moon-outline-tJqh1S {
+            background-color: transparent;
+            height: 24px;
+            left: 142px;
+            position: absolute;
+            top: 909px;
+            width: 24px;
+        }
+
+        .taskhub .title-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 34px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 901px;
+            width: auto;
+        }
+
+        .taskhub .dark-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 191px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 901px;
+            width: auto;
+        }
+
+        .taskhub .ellipse-3-tJqh1S {
+            background-color: transparent;
+            height: 67px;
+            left: 24px;
+            position: absolute;
+            top: 28px;
+            width: 67px;
+        }
+
+        .taskhub .task-hub-tJqh1S {
+            background-color: transparent;
+            color: var(--black);
+            font-family: var(--font-family-jost);
+            font-size: var(--font-size-l);
+            font-style: normal;
+            font-weight: 600;
+            height: auto;
+            left: 114px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 43px;
+            width: auto;
+        }
+
+        .taskhub .task-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 93px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 226px;
+            width: auto;
+        }
+
+        .taskhub .board-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 96px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 162px;
+            width: auto;
+        }
+
+        .taskhub .projects-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 94px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 290px;
+            width: auto;
+        }
+
+        .taskhub .collaboration-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 93px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 354px;
+            width: auto;
+        }
+
+        .taskhub .reports-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 93px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 418px;
+            width: auto;
+        }
+
+        .taskhub .clients-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 93px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 482px;
+            width: auto;
+        }
+
+        .taskhub .payments-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 93px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 544px;
+            width: auto;
+        }
+
+        .taskhub .account-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 96px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 650px;
+            width: auto;
+        }
+
+        .taskhub .settings-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 96px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 712px;
+            width: auto;
+        }
+
+        .taskhub .rectangle-15-tJqh1S {
+            background-color: #362514;
+            height: 55px;
+            left: 0px;
+            mix-blend-mode: exclusion;
+            position: absolute;
+            top: 150px;
+            width: 270px;
+        }
+
+        .taskhub .frame-2-zyHaWh {
+            background-color: var(--white);
+            height: 90px;
+            left: 270px;
+            overflow: hidden;
+            position: absolute;
+            top: 0px;
+            width: 1174px;
+        }
+
+        .taskhub .simplify-your-workflow-rNEU9r {
+            background-color: transparent;
+            color: var(--oxford-blue);
+            font-family: var(--font-family-jost);
+            font-size: var(--font-size-l);
+            font-style: normal;
+            font-weight: 600;
+            height: auto;
+            left: 71px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 34px;
+            width: auto;
+        }
+
+        .taskhub .vector-rNEU9r {
+            height: 25px;
+            left: 1010px;
+            top: 37px;
+            width: 25px;
+        }
+
+        .taskhub .ellipse-2-rNEU9r {
+            background-color: transparent;
+            height: 42px;
+            left: 1111px;
+            position: absolute;
+            top: 27px;
+            width: 42px;
+        }
+
+        .taskhub .chevron-down-rNEU9r {
+            background-color: transparent;
+            height: 20px;
+            left: 1148px;
+            position: absolute;
+            top: 52px;
+            width: 20px;
+        }
+
+        .taskhub .rectangle-1-zyHaWh {
+            background-color: var(--white);
+            height: 44px;
+            left: 302px;
+            position: absolute;
+            top: 130px;
+            width: 292px;
+        }
+
+        .taskhub .search-zyHaWh {
+            background-color: transparent;
+            color: var(--oxford-blue);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-s);
+            font-style: normal;
+            font-weight: 400;
+            height: auto;
+            left: 346px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 142px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .vector-zyHaWh {
+            height: 20px;
+            left: 316px;
+            top: 142px;
+            width: 20px;
+        }
+
+        .taskhub .rectangle-3-zyHaWh {
+            background-color: var(--white);
+            height: 44px;
+            left: 1239px;
+            position: absolute;
+            top: 125px;
+            width: 150px;
+        }
+
+        .taskhub .filter-zyHaWh {
+            background-color: transparent;
+            height: auto;
+            left: 1309px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 137px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .to-do-12-zyHaWh {
+            background-color: transparent;
+            height: auto;
+            left: 314px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 222px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .span0-1pvm7x {}
+
+        .taskhub .span1-1pvm7x {
+            color: var(--black);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .taskhub .span2-1pvm7x {
+            color: #a0a4a9;
+            font-weight: 400;
+        }
+
+        .taskhub .in-progress-32-zyHaWh {
+            background-color: transparent;
+            height: auto;
+            left: 454px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 222px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .span0-HJS0kC {}
+
+        .taskhub .span1-HJS0kC {
+            color: var(--black);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .taskhub .span2-HJS0kC {
+            color: #a0a0a0;
+            font-weight: 600;
+        }
+
+        .taskhub .completed-22-zyHaWh {
+            background-color: transparent;
+            height: auto;
+            left: 629px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 222px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .span0-gtoZyP {}
+
+        .taskhub .span1-gtoZyP {
+            color: var(--black);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .taskhub .span2-gtoZyP {
+            color: #aaaaaa;
+            font-weight: 600;
+        }
+
+        .taskhub .overdue-2-zyHaWh {
+            background-color: transparent;
+            height: auto;
+            left: 814px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 222px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .span0-dFyg3Z {}
+
+        .taskhub .span1-dFyg3Z {
+            color: #aaaaaa;
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .taskhub .rectangle-4-zyHaWh {
+            background-color: var(--white);
+            height: 43px;
+            left: 959px;
+            position: absolute;
+            top: 213px;
+            width: 152px;
+        }
+
+        .taskhub .add-new-task-zyHaWh {
+            background-color: transparent;
+            height: auto;
+            left: 988px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 224px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .x20th-march-2024-zyHaWh {
+            left: 353px;
+            top: 699px;
+        }
+
+        .taskhub .span0-0l9zDy {}
+
+        .taskhub .span1-0l9zDy {}
+
+        .taskhub .x20th-march-2024-DmwrQX {
+            left: 349px;
+            top: 470px;
+        }
+
+        .taskhub .span0-dMfmgd {}
+
+        .taskhub .span1-dMfmgd {}
+
+        .taskhub .x20th-march-2024-r8YKOI {
+            left: 353px;
+            top: 958px;
+        }
+
+        .taskhub .span0-gNq2zM {}
+
+        .taskhub .span1-gNq2zM {}
+
+        .taskhub .x20th-march-2024-FcVQ9C {
+            left: 696px;
+            top: 952px;
+        }
+
+        .taskhub .span0-RjPO7M {}
+
+        .taskhub .span1-RjPO7M {}
+
+        .taskhub .x20th-march-2024-bkOtl2 {
+            left: 694px;
+            top: 698px;
+        }
+
+        .taskhub .span0-QSK5on {}
+
+        .taskhub .span1-QSK5on {}
+
+        .taskhub .x20th-march-2024-lTbxz3 {
+            left: 694px;
+            top: 470px;
+        }
+
+        .taskhub .span0-nUbBNa {}
+
+        .taskhub .span1-nUbBNa {}
+
+        .taskhub .x15th-march-2024-zyHaWh {
+            left: 1045px;
+            top: 698px;
+        }
+
+        .taskhub .span0-R8ox9d {}
+
+        .taskhub .span1-R8ox9d {}
+
+        .taskhub .x15th-march-2024-DmwrQX {
+            left: 1045px;
+            top: 951px;
+        }
+
+        .taskhub .span0-Gpyspf {}
+
+        .taskhub .span1-Gpyspf {}
+
+        .taskhub .x15th-march-2024-r8YKOI {
+            left: 1042px;
+            top: 466px;
+        }
+
+        .taskhub .span0-wiwvMc {}
+
+        .taskhub .span1-wiwvMc {}
+
+        .taskhub .group-4-zyHaWh {
+            background-color: transparent;
+            height: 40px;
+            left: 319px;
+            position: absolute;
+            top: 583px;
+            width: 271px;
+        }
+
+        .taskhub .linked-in-optimizati-72nn0H {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-6OtLfJ {}
+
+        .taskhub .span1-6OtLfJ {}
+
+        .taskhub .group-12-zyHaWh {
+            background-color: transparent;
+            height: 40px;
+            left: 317px;
+            position: absolute;
+            top: 350px;
+            width: 271px;
+        }
+
+        .taskhub .sandbox-ux-redisign-lhOnEb {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-x1csY3 {}
+
+        .taskhub .span1-x1csY3 {}
+
+        .taskhub .group-5-zyHaWh {
+            background-color: transparent;
+            height: 40px;
+            left: 333px;
+            position: absolute;
+            top: 848px;
+            width: 271px;
+        }
+
+        .taskhub .logo-design-this-pro-GG45ym {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-qkB4d3 {}
+
+        .taskhub .span1-qkB4d3 {}
+
+        .taskhub .group-6-zyHaWh {
+            background-color: transparent;
+            height: 57px;
+            left: 678px;
+            position: absolute;
+            top: 838px;
+            width: 279px;
+        }
+
+        .taskhub .cv-writing-this-proj-Y5A8K6 {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-9JJ6Pd {}
+
+        .taskhub .span1-9JJ6Pd {}
+
+        .taskhub .group-7-zyHaWh {
+            background-color: transparent;
+            height: 57px;
+            left: 676px;
+            position: absolute;
+            top: 584px;
+            width: 279px;
+        }
+
+        .taskhub .business-plan-this-p-r6DLox {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-iswN7r {}
+
+        .taskhub .span1-iswN7r {}
+
+        .taskhub .group-11-zyHaWh {
+            background-color: transparent;
+            height: 57px;
+            left: 678px;
+            position: absolute;
+            top: 352px;
+            width: 279px;
+        }
+
+        .taskhub .social-media-managem-2BcNmR {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-rPH9IJ {}
+
+        .taskhub .span1-rPH9IJ {}
+
+        .taskhub .group-8-zyHaWh {
+            background-color: transparent;
+            height: 57px;
+            left: 1027px;
+            position: absolute;
+            top: 584px;
+            width: 297px;
+        }
+
+        .taskhub .span0-u9rNFU {}
+
+        .taskhub .span1-u9rNFU {}
+
+        .taskhub .group-10-zyHaWh {
+            background-color: transparent;
+            height: 57px;
+            left: 1027px;
+            position: absolute;
+            top: 837px;
+            width: 302px;
+        }
+
+        .taskhub .printing-this-involv-217Al2 {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-aEc5fI {}
+
+        .taskhub .span1-aEc5fI {}
+
+        .taskhub .group-9-zyHaWh {
+            background-color: transparent;
+            height: 57px;
+            left: 1024px;
+            position: absolute;
+            top: 352px;
+            width: 297px;
+        }
+
+        .taskhub .span0-zxIQye {}
+
+        .taskhub .span1-zxIQye {}
+
+        .taskhub .ellipse-19-zyHaWh {
+            background-color: var(--malachite);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 319px;
+            position: absolute;
+            top: 543px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-55-zyHaWh {
+            background-color: var(--malachite);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 319px;
+            position: absolute;
+            top: 312px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-24-zyHaWh {
+            background-color: var(--red);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 332px;
+            position: absolute;
+            top: 798px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-29-zyHaWh {
+            background-color: var(--malachite);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 678px;
+            position: absolute;
+            top: 798px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-34-zyHaWh {
+            background-color: var(--red);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 676px;
+            position: absolute;
+            top: 544px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-54-zyHaWh {
+            background-color: var(--red);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 678px;
+            position: absolute;
+            top: 312px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-39-zyHaWh {
+            background-color: #ebf00b;
+            border-radius: 13.5px;
+            height: 27px;
+            left: 1027px;
+            position: absolute;
+            top: 544px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-49-zyHaWh {
+            background-color: var(--red);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 1027px;
+            position: absolute;
+            top: 797px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-44-zyHaWh {
+            background-color: #ebf00b;
+            border-radius: 13.5px;
+            height: 27px;
+            left: 1024px;
+            position: absolute;
+            top: 312px;
+            width: 27px;
+        }
+
+        .taskhub .line-4-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 328px;
+            object-fit: cover;
+            position: absolute;
+            top: 684px;
+            width: 274px;
+        }
+
+        .taskhub .line-12-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 328px;
+            object-fit: cover;
+            position: absolute;
+            top: 453px;
+            width: 274px;
+        }
+
+        .taskhub .line-5-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 340px;
+            object-fit: cover;
+            position: absolute;
+            top: 939px;
+            width: 274px;
+        }
+
+        .taskhub .line-6-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 687px;
+            object-fit: cover;
+            position: absolute;
+            top: 939px;
+            width: 274px;
+        }
+
+        .taskhub .line-7-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 685px;
+            object-fit: cover;
+            position: absolute;
+            top: 685px;
+            width: 274px;
+        }
+
+        .taskhub .line-11-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 685px;
+            object-fit: cover;
+            position: absolute;
+            top: 453px;
+            width: 274px;
+        }
+
+        .taskhub .line-8-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 1036px;
+            object-fit: cover;
+            position: absolute;
+            top: 685px;
+            width: 274px;
+        }
+
+        .taskhub .line-10-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 1036px;
+            object-fit: cover;
+            position: absolute;
+            top: 938px;
+            width: 274px;
+        }
+
+        .taskhub .line-9-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 1033px;
+            object-fit: cover;
+            position: absolute;
+            top: 453px;
+            width: 274px;
+        }
+
+        .taskhub .ellipse-20-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 556px;
+            position: absolute;
+            top: 698px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-56-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 556px;
+            position: absolute;
+            top: 470px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-25-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 568px;
+            position: absolute;
+            top: 952px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-30-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 915px;
+            position: absolute;
+            top: 953px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-35-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 913px;
+            position: absolute;
+            top: 699px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-60-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 913px;
+            position: absolute;
+            top: 472px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-40-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1264px;
+            position: absolute;
+            top: 699px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-50-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1264px;
+            position: absolute;
+            top: 952px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-45-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1261px;
+            position: absolute;
+            top: 467px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-21-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 532px;
+            position: absolute;
+            top: 698px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-57-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 532px;
+            position: absolute;
+            top: 470px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-26-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 534px;
+            position: absolute;
+            top: 952px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-31-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 888px;
+            position: absolute;
+            top: 953px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-36-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 889px;
+            position: absolute;
+            top: 699px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-61-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 889px;
+            position: absolute;
+            top: 472px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-41-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1240px;
+            position: absolute;
+            top: 699px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-51-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1240px;
+            position: absolute;
+            top: 952px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-46-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1237px;
+            position: absolute;
+            top: 467px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-22-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 544px;
+            position: absolute;
+            top: 698px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-58-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 544px;
+            position: absolute;
+            top: 470px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-27-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 552px;
+            position: absolute;
+            top: 952px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-32-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 903px;
+            position: absolute;
+            top: 953px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-37-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 901px;
+            position: absolute;
+            top: 699px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-62-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 901px;
+            position: absolute;
+            top: 472px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-42-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1252px;
+            position: absolute;
+            top: 699px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-52-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1252px;
+            position: absolute;
+            top: 952px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-47-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1249px;
+            position: absolute;
+            top: 467px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-23-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 573px;
+            position: absolute;
+            top: 700px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-59-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 573px;
+            position: absolute;
+            top: 472px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-28-zyHaWh {
+            background-color: transparent;
+            height: 20px;
+            left: 585px;
+            position: absolute;
+            top: 954px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-33-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 931px;
+            position: absolute;
+            top: 955px;
+            transform: rotate(15.00deg);
+            width: 20px;
+        }
+
+        .taskhub .ellipse-38-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 930px;
+            position: absolute;
+            top: 701px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-63-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 930px;
+            position: absolute;
+            top: 474px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-43-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 1281px;
+            position: absolute;
+            top: 701px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-53-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 1281px;
+            position: absolute;
+            top: 954px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-48-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 1278px;
+            position: absolute;
+            top: 469px;
+            width: 20px;
+        }
+
+        .taskhub .x5-zyHaWh {
+            left: 579px;
+            top: 701px;
+        }
+
+        .taskhub .x5-DmwrQX {
+            left: 579px;
+            top: 473px;
+        }
+
+        .taskhub .x5-r8YKOI {
+            left: 591px;
+            top: 954px;
+        }
+
+        .taskhub .x5-FcVQ9C {
+            left: 937px;
+            top: 955px;
+            transform: rotate(-1.83deg);
+        }
+
+        .taskhub .x5-bkOtl2 {
+            left: 936px;
+            top: 702px;
+        }
+
+        .taskhub .x5-lTbxz3 {
+            left: 936px;
+            top: 475px;
+        }
+
+        .taskhub .x5-eQBxFF {
+            left: 1287px;
+            top: 702px;
+        }
+
+        .taskhub .x5-nfBLxy {
+            left: 1287px;
+            top: 955px;
+        }
+
+        .taskhub .x5-K9dwSA {
+            left: 1284px;
+            top: 470px;
+        }
+
+        .taskhub .vector-DmwrQX {
+            height: 20px;
+            left: 1019px;
+            top: 470px;
+            width: 20px;
+        }
+
+        .taskhub .vector-r8YKOI {
+            height: 20px;
+            left: 325px;
+            top: 702px;
+            width: 20px;
+        }
+
+        .taskhub .vector-FcVQ9C {
+            height: 20px;
+            left: 327px;
+            top: 473px;
+            width: 20px;
+        }
+
+        .taskhub .vector-bkOtl2 {
+            height: 20px;
+            left: 669px;
+            top: 702px;
+            width: 20px;
+        }
+
+        .taskhub .vector-lTbxz3 {
+            height: 20px;
+            left: 669px;
+            top: 472px;
+            width: 20px;
+        }
+
+        .taskhub .vector-eQBxFF {
+            height: 20px;
+            left: 1023px;
+            top: 704px;
+            width: 20px;
+        }
+
+        .taskhub .vector-nfBLxy {
+            height: 20px;
+            left: 330px;
+            top: 961px;
+            width: 20px;
+        }
+
+        .taskhub .vector-K9dwSA {
+            height: 20px;
+            left: 675px;
+            top: 956px;
+            width: 20px;
+        }
+
+        .taskhub .vector-2MJaOM {
+            height: 20px;
+            left: 1023px;
+            top: 956px;
+            width: 20px;
+        }
+
+        .taskhub .vector-eW5CJs {
+            height: 18px;
+            left: 1264px;
+            top: 139px;
+            width: 18px;
+        }
+
+        .taskhub .vector-i5zJE0 {
+            height: 20px;
+            left: 967px;
+            top: 224px;
+            width: 16px;
+        }
+
+        .taskhub .branding-re-branding {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .chart-bar-outline {
+            background-color: transparent;
+            height: 30px;
+            left: 41px;
+            position: absolute;
+            width: 30px;
+        }
+
+        .taskhub .span2 {
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+        }
+
+        .taskhub .vector {
+            background-color: transparent;
+            position: absolute;
+        }
+
+        .taskhub .x15th-march-2024 {
+            background-color: transparent;
+            height: auto;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .x20th-march-2024 {
+            background-color: transparent;
+            height: auto;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .x5 {
+            background-color: transparent;
+            height: auto;
+            letter-spacing: 0.45px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            white-space: nowrap;
+            width: auto;
+        }
+    </style>
+    <script id="anime-js-script" src="https://cdn.jsdelivr.net/npm/animejs@3.1.0/lib/anime.min.js"
+        integrity="sha256-98Q574VkbV+PkxXCKSgL6jVq9mrVbS7uCdA+vt0sLS8=" crossorigin="anonymous"></script>
+    <script id="imgloaded-js-script" src="https://unpkg.com/imagesloaded@4/imagesloaded.pkgd.min.js"></script>
+    <style id="action-links-styles">
+        @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
+        #anima-interface {
+            transition: all 0.5s ease-in-out;
+        }
+
+        #anima-watermark {
+            transition: all 0.5s ease-in-out;
+            display: none;
+        }
+
+        #anima-watermark-link {
+            position: fixed;
+            bottom: 20px;
+            height: 30px;
+            border-radius: 1000px;
+            background: #3B3B3B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            transition: width 0.25s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 16px 8px 11px;
+            font-family: Mulish, sans-serif;
+            font-size: 12px;
+        }
+
+        #anima-watermark-link .text {
+            margin-left: 6px;
+        }
+
+        .omniview-anima-action-links .link {
+            height: 30px;
+            width: 30px;
+            border-radius: 1000px;
+            background: #3B3B3B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            transition: width 0.25s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .omniview-anima-action-links #comment-link .text,
+        .omniview-anima-action-links #code-link .text {
+            display: none;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        .omniview-anima-action-links #comment-link:hover,
+        .omniview-anima-action-links #code-link:hover {
+            width: 105px;
+        }
+
+        .omniview-anima-action-links #comment-link.pop-active,
+        .omniview-anima-action-links #code-link.pop-active {
+            width: 105px;
+            background: #FF6250;
+        }
+
+        .omniview-anima-action-links #comment-link.pop-active .text,
+        .omniview-anima-action-links #code-link.pop-active .text {
+            display: block
+        }
+
+        .omniview-anima-action-links #comment-link:hover .text,
+        .omniview-anima-action-links #code-link:hover .text {
+            display: block;
+        }
+
+        .link.navigation {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            height: 32px;
+            color: #fff;
+            font-size: 12px;
+            cursor: default;
+            padding: 0 5px;
+        }
+
+        .link.navigation .icon {
+            margin: 0 6px;
+            fill: none;
+            stroke: currentColor;
+            cursor: pointer;
+        }
+
+        .link.navigation .icon.disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+
+        .link.navigation .home-icon {
+            margin-left: 6px;
+            fill: currentColor;
+            stroke: currentColor;
+            cursor: pointer;
+        }
+
+        .omniview-anima-action-links .restart {
+            height: 30px;
+            padding: 0 12px;
+            background: #3B3B3B;
+            border-radius: 1000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #f1f1f1;
+            font-size: 12px;
+        }
+
+        .omniview-anima-action-links {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-family: Mulish, sans-serif;
+            transition: all 0.5s ease-in-out;
+            opacity: 1;
+        }
+
+        .omniview-anima-action-links>*+* {
+            margin-right: 0;
+            margin-left: 10px;
+        }
+
+        .idle {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #popoverOpener {
+            position: absolute;
+            left: 50%;
+            margin-left: -10vw;
+            text-align: center;
+            top: 45vh;
+            width: 20vw;
+        }
+
+
+        .popover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1060;
+            display: none;
+            font-family: "sans-serif";
+            font-size: 14px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        }
+
+        .popover.top {
+            margin-top: -12px
+        }
+
+        .popover.right {
+            margin-left: 10px
+        }
+
+        .popover.bottom {
+            margin-top: 10px
+        }
+
+        .popover.left {
+            margin-left: -10px
+        }
+
+        .popover-title {
+            padding: 8px 14px;
+            margin: 0;
+            font-size: 14px;
+            background-color: #f7f7f7;
+            border-bottom: 1px solid #ebebeb;
+            border-radius: 5px 5px 0 0
+        }
+
+        .popover-content {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            overflow: hidden;
+            font-family: Mulish, sans-serif;
+        }
+
+
+
+        .popover>.arrow,
+        .popover>.arrow:after {
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid
+        }
+
+        .popover>.arrow {
+            border-width: 11px
+        }
+
+        .popover>.arrow:after {
+            content: "";
+            border-width: 10px
+        }
+
+        .popover.top>.arrow {
+            bottom: -11px;
+            left: 50%;
+            margin-left: -11px;
+            border-top-color: #999;
+            border-top-color: rgba(0, 0, 0, .25);
+            border-bottom-width: 0
+        }
+
+        .popover.top>.arrow:after {
+            bottom: 1px;
+            margin-left: -10px;
+            content: " ";
+            border-top-color: #fff;
+            border-bottom-width: 0
+        }
+
+        .popover.right>.arrow {
+            top: 50%;
+            left: -11px;
+            margin-top: -11px;
+            border-right-color: #999;
+            border-right-color: rgba(0, 0, 0, .25);
+            border-left-width: 0
+        }
+
+        .popover.right>.arrow:after {
+            bottom: -10px;
+            left: 1px;
+            content: " ";
+            border-right-color: #fff;
+            border-left-width: 0
+        }
+
+        .popover.bottom>.arrow {
+            top: -11px;
+            left: 50%;
+            margin-left: -11px;
+            border-top-width: 0;
+            border-bottom-color: #999;
+            border-bottom-color: rgba(0, 0, 0, .25)
+        }
+
+        .popover.bottom>.arrow:after {
+            top: 1px;
+            margin-left: -10px;
+            content: " ";
+            border-top-width: 0;
+            border-bottom-color: #fff
+        }
+
+        .popover.left>.arrow {
+            top: 50%;
+            right: -11px;
+            margin-top: -11px;
+            border-right-width: 0;
+            border-left-color: #999;
+            border-left-color: rgba(0, 0, 0, .25)
+        }
+
+        .popover.left>.arrow:after {
+            right: 1px;
+            bottom: -10px;
+            content: " ";
+            border-right-width: 0;
+            border-left-color: #fff
+        }
+
+
+
+        #anima-comment-popover,
+        #anima-code-popover {
+            background: #333333;
+            color: #fff;
+        }
+
+        #anima-comment-popover.top>.arrow,
+        #anima-comment-popover.top>.arrow:after,
+        #anima-code-popover.top>.arrow:after,
+        #anima-code-popover.top>.arrow {
+            border-top-color: #333;
+        }
+
+        #anima-comment-popover .btn,
+        #anima-code-popover .btn {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 6px 20px;
+            background: #FF6250;
+            color: #fff;
+            border-radius: 100px;
+            width: max-content;
+            text-decoration: none;
+        }
+
+        @media screen and (max-width: 550px) {
+            #anima-watermark-link {
+                padding: 6px !important;
+            }
+
+            #anima-watermark-link .text {
+                display: none !important;
+            }
+        }
+    </style>
+</head>
+
+<body style="margin: 0px; background: rgb(241, 244, 251); overflow-x: hidden;" dark-scroll=""><input type="hidden"
+        id="anPageName" name="page" value="taskhub">
+    <div class="container-center-horizontal">
+        <div class="container-center-vertical">
+            <div class="taskhub screen " data-id="5:3">
+                <div class="frame-1-zyHaWh" data-id="5:4"><img class="cog-outline-tJqh1S" data-id="13:25"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/cogoutline.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/cogoutline.svg"
+                        alt="CogOutline"><a href="PG2.html"><img class="vector-tJqh1S vector" data-id="13:29"
+                            src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/vector-12.svg"
+                            anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/vector-12.svg"
+                            alt="Vector"></a><img class="user-group-outline-tJqh1S" data-id="13:30"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/usergroupoutline.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/usergroupoutline.svg"
+                        alt="UserGroupOutline"><img class="vector-znz9JC vector" data-id="13:31"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/vector-13.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/vector-13.svg"
+                        alt="Vector"><img class="chart-bar-outline-tJqh1S chart-bar-outline" data-id="13:34"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/chartbaroutline.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/chartbaroutline.svg"
+                        alt="ChartBarOutline"><img class="vector-8girqH vector" data-id="13:37"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/vector-14.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/vector-14.svg"
+                        alt="Vector"><img class="vector-DxpObN vector" data-id="13:42"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/vector-15.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/vector-15.svg"
+                        alt="Vector"><img class="chart-bar-outline-znz9JC chart-bar-outline" data-id="13:43"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/chartbaroutline.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/chartbaroutline.svg"
+                        alt="ChartBarOutline"><img class="view-grid-outline-tJqh1S" data-id="13:45"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/viewgridoutline.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/viewgridoutline.svg"
+                        alt="ViewGridOutline">
+                    <div class="rectangle-2-tJqh1S" data-id="13:47"></div>
+                    <div class="ellipse-1-tJqh1S" data-id="13:48"></div><img class="sun-outline-tJqh1S" data-id="13:21"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/sunoutline.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/sunoutline.svg"
+                        alt="SunOutline"><img class="moon-outline-tJqh1S" data-id="13:23"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/moonoutline.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/moonoutline.svg"
+                        alt="MoonOutline">
+                    <h1 class="title-tJqh1S jost-normal-black-24px" data-id="13:49">Light</h1>
+                    <div class="dark-tJqh1S jost-normal-black-24px" data-id="13:50">Dark</div><img
+                        class="ellipse-3-tJqh1S" data-id="13:56"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/ellipse-3.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/ellipse-3.svg"
+                        alt="Ellipse 3">
+                    <div class="task-hub-tJqh1S" data-id="13:57">TaskHub</div>
+                    <div class="task-tJqh1S sofiasans-normal-black-24px" data-id="13:58">Task</div>
+                    <div class="board-tJqh1S sofiasans-normal-black-24px" data-id="13:59">Board</div>
+                    <div class="projects-tJqh1S sofiasans-normal-black-24px" data-id="13:60">Projects</div>
+                    <div class="collaboration-tJqh1S sofiasans-normal-black-24px" data-id="13:61">Collaboration</div>
+                    <div class="reports-tJqh1S sofiasans-normal-black-24px" data-id="13:62">Reports</div>
+                    <div class="clients-tJqh1S sofiasans-normal-black-24px" data-id="13:63">Clients</div>
+                    <div class="payments-tJqh1S sofiasans-normal-black-24px" data-id="13:64">Payments</div>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            var button = document.getElementById('redirectButton');
+                            button.addEventListener('click', function () {
+                                window.location.href = 'Account.html';
+                            });
+                        });
+                    </script>
+                    <div class="account-tJqh1S jost-normal-black-24px" data-id="14:67" id="redirectButton">Account</div>
+                    <div class="settings-tJqh1S jost-normal-black-24px" data-id="14:68">Settings</div>
+                    <div class="rectangle-15-tJqh1S" data-id="4:4"></div>
+                </div>
+                <div class="frame-2-zyHaWh" data-id="5:5">
+                    <div class="simplify-your-workflow-rNEU9r" data-id="6:6">Simplify Your Workflow</div><img
+                        class="vector-rNEU9r vector" data-id="13:20"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/vector-16.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/vector-16.svg"
+                        alt="Vector"><img class="ellipse-2-rNEU9r" data-id="13:51"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/ellipse-2.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387afcee96127f0f6e2cd/img/ellipse-2.svg"
+                        alt="Ellipse 2"><img class="chevron-down-rNEU9r" data-id="13:54"
+                        src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/chevrondown.svg"
+                        anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/chevrondown.svg"
+                        alt="ChevronDown">
+                </div>
+                <div class="rectangle-1-zyHaWh" data-id="11:7"></div>
+                <div class="search-zyHaWh" data-id="13:16">Search</div><img class="vector-zyHaWh vector" data-id="13:18"
+                    src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/vector.svg"
+                    anima-src="https://cdn.animaapp.com/projects/660386f6f5b296514cc3c90f/releases/660387502fcfe8095f8c6fc6/img/vector.svg"
+                    alt="Vector">
+                <div class="rectangle-3-zyHaWh" data-id="15:119"></div>
+                <div class="filter-zyHaWh sofiasans-normal-oxford-blue-20px" data-id="15:121">Filter</div>
+                <div class="to-do-12-zyHaWh sofiasans-semi-bold-white-20px" data-id="15:126"><span
+                        class="span0-1pvm7x sofiasans-semi-bold-oxford-blue-20px">To-do</span><span
+                        class="span1-1pvm7x">&nbsp;</span><span class="span2-1pvm7x span2">()</span></div>
+                <div class="in-progress-32-zyHaWh sofiasans-semi-bold-white-20px" data-id="15:127"><span
+                        class="span0-HJS0kC sofiasans-semi-bold-oxford-blue-20px">In progress</span><span
+                        class="span1-HJS0kC">&nbsp;</span><span class="span2-HJS0kC span2">()</span></div>
+                <div class="completed-22-zyHaWh sofiasans-semi-bold-white-20px" data-id="15:128"><span
+                        class="span0-gtoZyP sofiasans-semi-bold-oxford-blue-20px">Completed</span><span
+                        class="span1-gtoZyP">&nbsp;</span><span class="span2-gtoZyP span2">()</span></div>
+                <div class="overdue-2-zyHaWh sofiasans-semi-bold-white-20px" data-id="15:129"><span
+                        class="span0-dFyg3Z sofiasans-semi-bold-oxford-blue-20px">Overdue</span><span
+                        class="span1-dFyg3Z">
+                        ()</span></div>
+                <div class="rectangle-4-zyHaWh" data-id="15:130"></div>
+                <div class="add-new-task-zyHaWh sofiasans-semi-bold-oxford-blue-20px" data-id="15:131">Add new Task
+                </div>
+
+
+            </div>
+        </div>
+        <script src="launchpad-js/launchpad-banner.js" async=""></script>
+        <script defer="" src="https://animaapp.s3.amazonaws.com/static/restart-btn.min.js"></script>
+        <div id="anima-interface" data-turbo-permanent="true" class="idle"><!---->
+            <div id="anima-comment-popover" class="popover top" role="tooltip" style="left: -205px; top: -220px;">
+                <div class="arrow" style="margin-left: 128px;"></div>
+                <div class="popover-content" style="align-items:center">
+                    <div style="display:flex;flex-direction:column;height: 100%;padding: 20px;">
+                        <h3
+                            style="font-size:18px;margin-bottom:10px;font-weight:500;line-height: 26px;font-family: Roslindale;">
+                            Leave feedback and collaborate
+                        </h3>
+                        <p style="font-size:12px;margin-bottom:20px;font-weight:400;line-height: 20px;">
+                            Login to your account to leave comments. Don't have an account?
+                            Sign up for free!
+                        </p>
+                        <a target="_blank" rel="noopener noreferrer" class="btn"
+                            href="https://projects.animaapp.com/p/undefined/s/undefined?mode=comments&amp;utm_campaign=add-comment&amp;utm_medium=add-comment&amp;utm_source=animaapp.io">Add
+                            comment</a>
+                    </div>
+
+                    <div style="display:flex;align-items:center;justify-content:center;padding-right:20px">
+                        <img src="https://animaapp.s3.amazonaws.com/static/comment-illustration.svg">
+                    </div>
+                </div>
+            </div>
+            <div id="anima-code-popover" class="popover top" role="tooltip" style="left: -205px; top: -220px;">
+                <div class="arrow" style="margin-left: 168px;"></div>
+                <div class="popover-content" style="align-items:center">
+                    <div style="display:flex;flex-direction:column;height: 100%;padding: 20px;">
+                        <h3
+                            style="font-size:18px;margin-bottom:10px;font-weight:500;line-height: 26px;font-family: Roslindale;">
+                            Get clean code you’ll love with Anima
+                        </h3>
+                        <p style="font-size:12px;margin-bottom:20px;font-weight:400;line-height: 20px;">
+                            Login and easily export HTML, React or Vue of this prototype.
+                            Don’t have an account? Sign up for free!
+                        </p>
+                        <a target="_blank" rel="noopener noreferrer" class="btn"
+                            href="https://projects.animaapp.com/p/undefined/s/undefined?mode=code&amp;utm_campaign=get-code&amp;utm_medium=get-code&amp;utm_source=animaapp.io">
+                            Get code
+                        </a>
+                    </div>
+
+                    <img src="https://animaapp.s3.amazonaws.com/static/code-illustration.svg">
+                </div>
+            </div>
+            <div class="omniview-anima-action-links" id="actions-wrap">
+                <div class="omniview-anima-action-links">
+                    <div id="page-nav" class="link navigation" style="display: none;">
+                        <svg id="homepage-icon" class="home-icon" width="24" height="24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M8.151 11a.25.25 0 01-.167-.436l4.349-3.913a.25.25 0 01.334 0l4.349 3.913a.25.25 0 01-.167.436H8.15zM16 12H9v4a1 1 0 001 1h5a1 1 0 001-1v-4z"
+                                fill="#fff"></path>
+                        </svg>
+
+                        <svg class="icon" id="arrow-left" width="24" height="24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M15 18l-6-6 6-6" stroke="#fff" stroke-linecap="round" stroke-linejoin="round">
+                            </path>
+                        </svg>
+
+                        <span id="page-num"></span>
+
+                        <svg class="icon" id="arrow-right" width="24" height="24" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path d="M9 6l6 6-6 6" stroke-linecap="round" stroke-linejoin="round"></path>
+                        </svg>
+                    </div>
+
+                    <a class="link" id="comment-link" target="_blank" style="display: none;">
+                        <span class="text">Comment</span>
+                        <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path fill-rule="evenodd" clip-rule="evenodd"
+                                d="M4.301 15.137a.551.551 0 01.199-.55c.314-.23.554-.554.718-.965A6.015 6.015 0 014 10 6.006 6.006 0   0110.001 4 6.006 6.006 0 0116 10.001 6.006 6.006 0 019.999 16a5.98 5.98 0 01-3.095-.86 3.165 3.165 0 01-1.65.438 3.6  3.6 0 01-.57-.044c-.191-.03-.34-.186-.383-.397z"
+                                fill="#fff"></path>
+                        </svg>
+                    </a>
+
+                    <a class="link" id="code-link" target="_blank" style="display: none;">
+                        <span class="text">Get Code</span>
+                        <svg width="20" height="20" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M12 15.667a1 1 0 01-.707-1.708l3.626-3.625-3.626-3.626a1 1 0 111.415-1.415l4.333 4.333a1 1 0 010 1.414l-4.333 4.333a.993.993 0 01-.707.294zM7.333 5a1 1 0 01.707 1.708l-3.626 3.625 3.627 3.626a1 1 0 11-1.415 1.415L2.293 11.04a1 1 0 010-1.415l4.333-4.333A.992.992 0 017.333 5z"
+                                fill="#fff"></path>
+                        </svg>
+                    </a>
+
+                    <div class="restart" id="restart-btn" style="display: none;">
+                        <svg style="margin-right: 6px" width="12" height="12" fill="none"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <path
+                                d="M6 11.817A5.017 5.017 0 01.994 6.811c0-.207.169-.375.375-.375s.375.168.375.375A4.265 4.265 0 006 11.067a4.265 4.265 0 004.256-4.256A4.265 4.265 0 006 2.555a.376.376 0 01-.375-.376c0-.206.169-.374.375-.374a5.017 5.017 0 015.006 5.006A5.017 5.017 0 016 11.817z"
+                                fill="#fff"></path>
+                            <path
+                                d="M6.75 4.237a.37.37 0 01-.263-.112l-1.65-1.65a.363.363 0 010-.525L6.487.3c.15-.15.375-.15.525 0 .15.15.15.375 0 .525L5.625 2.212 7.012 3.6c.15.15.15.375 0 .525-.056.075-.15.112-.262.112z"
+                                fill="#fff"></path>
+                        </svg>
+                        Restart
+                    </div>
+                </div>
+            </div>
+            <!---->
+        </div>
+        <div id="anima-watermark" style="display: none;" class="idle"><!----><a id="anima-watermark-link"
+                target="_blank"
+                href="https://www.animaapp.com?utm_campaign=public-link-banner&amp;utm_medium=public-link-banner&amp;utm_source=animaapp.io"
+                style="right: 20px; left: auto; padding: 6px;">
+                <svg width="20" height="20" viewBox="0 0 20 20" id="anima-logo-icon" fill="none"
+                    xmlns="http://www.w3.org/2000/svg" data-hotspot-id="hp-0">
+                    <path
+                        d="M4.09293 3.00001H16.5327C16.5484 2.99976 16.5638 3.00351 16.5776 3.01092C16.5913 3.01832 16.603 3.02913 16.6114 3.04231C16.6198 3.0555 16.6247 3.07061 16.6256 3.08622C16.6265 3.10182 16.6233 3.1174 16.6165 3.13146C15.5441 5.29706 13.9276 7.14699 11.9253 8.50009C8.69117 10.6822 5.43436 10.9075 4.09389 10.9196C4.08165 10.9198 4.06949 10.9176 4.05811 10.9131C4.04672 10.9086 4.03636 10.9019 4.02761 10.8933C4.01887 10.8848 4.01192 10.8745 4.00718 10.8633C4.00244 10.852 4 10.8399 4 10.8276V3.09198C4 3.07982 4.00241 3.06778 4.00709 3.05656C4.01177 3.04534 4.01863 3.03516 4.02728 3.02661C4.03592 3.01805 4.04617 3.0113 4.05744 3.00673C4.06871 3.00217 4.08077 2.99988 4.09293 3.00001Z"
+                        fill="#FF6250"></path>
+                    <path
+                        d="M6.77772 17.4446C8.31182 17.4446 9.55545 16.201 9.55545 14.6669C9.55545 13.1328 8.31182 11.8892 6.77772 11.8892C5.24363 11.8892 4 13.1328 4 14.6669C4 16.201 5.24363 17.4446 6.77772 17.4446Z"
+                        fill="#FFDF90"></path>
+                    <path
+                        d="M12.4559 17.2799C11.6701 16.9799 11.2522 16.1151 11.5185 15.3496L13.6153 9.3656C13.884 8.60003 14.7387 8.22302 15.5245 8.52299C16.3103 8.82344 16.7282 9.68772 16.4619 10.4538L14.365 16.4377C14.0964 17.2033 13.2417 17.5808 12.4559 17.2799Z"
+                        fill="#3366FF"></path>
+                </svg>
+                <span class="text" style="display: none;">Made with Anima</span>
+            </a><!----></div>
+        <div id="hotspots_wrapper">
+            <div class="hotspot" id="hp-0" style="top: 0px; left: 0px; z-index: -1; opacity: 0;"></div>
+        </div>
+        <div id="t_preload_links">
+            <link href="/taskhub" rel="prefetch">
+        </div>
+</body>
+
+</html>
