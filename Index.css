@@ -1,0 +1,2131 @@
+        @import url("https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css");
+
+        @import url("https://fonts.googleapis.com/css?family=Jost:400,600|Sofia+Sans:400,600");
+
+        /* The following line is used to measure usage of this code. You can remove it if you want. */
+        @import url("https://px.animaapp.com/660386f4f5b296514cc3c90a.660386f5f5b296514cc3c90d.6YjoA16.hch.png");
+
+
+        .screen textarea:focus,
+        .screen input:focus {
+            outline: none;
+        }
+
+        .screen * {
+            -webkit-font-smoothing: antialiased;
+            box-sizing: border-box;
+        }
+
+        .screen div {
+            -webkit-text-size-adjust: none;
+        }
+
+        .component-wrapper a {
+            display: contents;
+            pointer-events: auto;
+            text-decoration: none;
+        }
+
+        .component-wrapper * {
+            -webkit-font-smoothing: antialiased;
+            box-sizing: border-box;
+            pointer-events: none;
+        }
+
+        .component-wrapper a *,
+        .component-wrapper input,
+        .component-wrapper video,
+        .component-wrapper iframe {
+            pointer-events: auto;
+        }
+
+        .component-wrapper.not-ready,
+        .component-wrapper.not-ready * {
+            visibility: hidden !important;
+        }
+
+        .screen a {
+            display: contents;
+            text-decoration: none;
+        }
+
+        .full-width-a {
+            width: 100%;
+        }
+
+        .full-height-a {
+            height: 100%;
+        }
+
+        .container-center-vertical {
+            align-items: center;
+            display: flex;
+            flex-direction: row;
+            height: 100%;
+            pointer-events: none;
+        }
+
+        .container-center-vertical>* {
+            flex-shrink: 0;
+            pointer-events: auto;
+        }
+
+        .container-center-horizontal {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            pointer-events: none;
+            width: 100%;
+        }
+
+        .container-center-horizontal>* {
+            flex-shrink: 0;
+            pointer-events: auto;
+        }
+
+        .auto-animated div {
+            --z-index: -1;
+            opacity: 0;
+            position: absolute;
+        }
+
+        .auto-animated input {
+            --z-index: -1;
+            opacity: 0;
+            position: absolute;
+        }
+
+        .auto-animated .container-center-vertical,
+        .auto-animated .container-center-horizontal {
+            opacity: 1;
+        }
+
+        .overlay-base {
+            display: none;
+            height: 100%;
+            opacity: 0;
+            position: fixed;
+            top: 0;
+            width: 100%;
+        }
+
+        .overlay-base.animate-appear {
+            align-items: center;
+            animation: reveal 0.3s ease-in-out 1 normal forwards;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            opacity: 0;
+        }
+
+        .overlay-base.animate-disappear {
+            animation: reveal 0.3s ease-in-out 1 reverse forwards;
+            display: block;
+            opacity: 1;
+            pointer-events: none;
+        }
+
+        .overlay-base.animate-disappear * {
+            pointer-events: none;
+        }
+
+        @keyframes reveal {
+            from {
+                opacity: 0
+            }
+
+            to {
+                opacity: 1
+            }
+        }
+
+        .animate-nodelay {
+            animation-delay: 0s;
+        }
+
+        .align-self-flex-start {
+            align-self: flex-start;
+        }
+
+        .align-self-flex-end {
+            align-self: flex-end;
+        }
+
+        .align-self-flex-center {
+            align-self: flex-center;
+        }
+
+        .valign-text-middle {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .valign-text-bottom {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
+        }
+
+        input:focus {
+            outline: none;
+        }
+
+        .listeners-active,
+        .listeners-active * {
+            pointer-events: auto;
+        }
+
+        .hidden,
+        .hidden * {
+            pointer-events: none;
+            visibility: hidden;
+        }
+
+        .smart-layers-pointers,
+        .smart-layers-pointers * {
+            pointer-events: auto;
+            visibility: visible;
+        }
+
+        .listeners-active-click,
+        .listeners-active-click * {
+            cursor: pointer;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        :root {
+            --alto: #d9d9d9;
+            --black: #000000;
+            --malachite: #0bf03d;
+            --oxford-blue: #36454f;
+            --red: #f00b0b;
+            --white: #ffffff;
+
+            --font-size-l: 24px;
+            --font-size-m: 20px;
+            --font-size-s: 16px;
+            --font-size-xs: 15px;
+            --font-size-xxs: 14px;
+
+            --font-family-jost: "Jost", Helvetica;
+            --font-family-sofia_sans: "Sofia Sans", Helvetica;
+        }
+
+        .sofiasans-normal-oxford-blue-20px {
+            color: var(--oxford-blue);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .sofiasans-normal-oxford-blue-14px {
+            color: var(--oxford-blue);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-xxs);
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .sofiasans-normal-black-15px {
+            color: var(--black);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-xs);
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .sofiasans-normal-black-24px {
+            color: var(--black);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-l);
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .sofiasans-semi-bold-oxford-blue-20px {
+            color: var(--oxford-blue);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .jost-normal-black-24px {
+            color: var(--black);
+            font-family: var(--font-family-jost);
+            font-size: var(--font-size-l);
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .sofiasans-semi-bold-white-20px {
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        :root {}
+
+
+        /* screen - taskhub */
+
+        .taskhub {
+            background-color: #f1f4fb;
+            height: 1024px;
+            overflow: hidden;
+            overflow-x: hidden;
+            position: relative;
+            width: 1440px;
+        }
+
+        .taskhub .frame-1-zyHaWh {
+            background-color: var(--white);
+            height: 1018px;
+            left: 0px;
+            overflow: hidden;
+            position: absolute;
+            top: 0px;
+            width: 270px;
+        }
+
+        .taskhub .cog-outline-tJqh1S {
+            background-color: transparent;
+            height: 30px;
+            left: 43px;
+            position: absolute;
+            top: 716px;
+            width: 30px;
+        }
+
+        .taskhub .vector-tJqh1S {
+            height: 32px;
+            left: 40px;
+            top: 651px;
+            width: 32px;
+        }
+
+        .taskhub .user-group-outline-tJqh1S {
+            background-color: transparent;
+            height: 30px;
+            left: 41px;
+            position: absolute;
+            top: 545px;
+            width: 30px;
+        }
+
+        .taskhub .vector-znz9JC {
+            height: 26px;
+            left: 40px;
+            top: 482px;
+            width: 32px;
+        }
+
+        .taskhub .chart-bar-outline-tJqh1S {
+            top: 418px;
+        }
+
+        .taskhub .vector-8girqH {
+            height: 30px;
+            left: 40px;
+            top: 352px;
+            width: 29px;
+        }
+
+        .taskhub .vector-DxpObN {
+            height: 27px;
+            left: 40px;
+            top: 288px;
+            width: 30px;
+        }
+
+        .taskhub .chart-bar-outline-znz9JC {
+            top: 227px;
+        }
+
+        .taskhub .view-grid-outline-tJqh1S {
+            background-color: transparent;
+            height: 30px;
+            left: 41px;
+            position: absolute;
+            top: 162px;
+            width: 30px;
+        }
+
+        .taskhub .rectangle-2-tJqh1S {
+            background-color: #f1f4fb;
+            border-radius: 100px;
+            height: 42px;
+            left: 93px;
+            position: absolute;
+            top: 900px;
+            width: 84px;
+        }
+
+        .taskhub .ellipse-1-tJqh1S {
+            background-color: #0b83d9;
+            border-radius: 20px/23px;
+            height: 46px;
+            left: 96px;
+            position: absolute;
+            top: 896px;
+            width: 40px;
+        }
+
+        .taskhub .sun-outline-tJqh1S {
+            background-color: transparent;
+            height: 24px;
+            left: 104px;
+            position: absolute;
+            top: 907px;
+            width: 24px;
+        }
+
+        .taskhub .moon-outline-tJqh1S {
+            background-color: transparent;
+            height: 24px;
+            left: 142px;
+            position: absolute;
+            top: 909px;
+            width: 24px;
+        }
+
+        .taskhub .title-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 34px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 901px;
+            width: auto;
+        }
+
+        .taskhub .dark-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 191px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 901px;
+            width: auto;
+        }
+
+        .taskhub .ellipse-3-tJqh1S {
+            background-color: transparent;
+            height: 67px;
+            left: 24px;
+            position: absolute;
+            top: 28px;
+            width: 67px;
+        }
+
+        .taskhub .task-hub-tJqh1S {
+            background-color: transparent;
+            color: var(--black);
+            font-family: var(--font-family-jost);
+            font-size: var(--font-size-l);
+            font-style: normal;
+            font-weight: 600;
+            height: auto;
+            left: 114px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 43px;
+            width: auto;
+        }
+
+        .taskhub .task-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 93px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 226px;
+            width: auto;
+            cursor: pointer;
+        }
+
+        .taskhub .board-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 96px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 162px;
+            width: auto;
+            cursor: pointer;
+        }
+
+        .taskhub .projects-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 94px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 290px;
+            width: auto;
+            cursor: pointer;
+        }
+
+        .taskhub .collaboration-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 93px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 354px;
+            width: auto;
+            cursor: pointer;
+        }
+
+        .taskhub .reports-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 93px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 418px;
+            width: auto;
+            cursor: pointer;
+        }
+
+        .taskhub .clients-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 93px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 482px;
+            width: auto;
+            cursor: pointer;
+        }
+
+        .taskhub .payments-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 93px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 544px;
+            width: auto;
+            cursor: pointer;
+        }
+
+        .taskhub .account-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 96px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 650px;
+            width: auto;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .taskhub .settings-tJqh1S {
+            background-color: transparent;
+            height: auto;
+            left: 96px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 712px;
+            width: auto;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        .taskhub .rectangle-15-tJqh1S {
+            background-color: #362514;
+            height: 55px;
+            left: 0px;
+            mix-blend-mode: exclusion;
+            position: absolute;
+            top: 150px;
+            width: 270px;
+        }
+
+        .taskhub .frame-2-zyHaWh {
+            background-color: var(--white);
+            height: 90px;
+            left: 270px;
+            overflow: hidden;
+            position: absolute;
+            top: 0px;
+            width: 1174px;
+        }
+
+        .taskhub .simplify-your-workflow-rNEU9r {
+            background-color: transparent;
+            color: var(--oxford-blue);
+            font-family: var(--font-family-jost);
+            font-size: var(--font-size-l);
+            font-style: normal;
+            font-weight: 600;
+            height: auto;
+            left: 71px;
+            letter-spacing: 0.72px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 34px;
+            width: auto;
+        }
+
+        .taskhub .vector-rNEU9r {
+            height: 25px;
+            left: 1010px;
+            top: 37px;
+            width: 25px;
+        }
+
+        .taskhub .ellipse-2-rNEU9r {
+            background-color: transparent;
+            height: 42px;
+            left: 1111px;
+            position: absolute;
+            top: 27px;
+            width: 42px;
+        }
+
+        .taskhub .chevron-down-rNEU9r {
+            background-color: transparent;
+            height: 20px;
+            left: 1148px;
+            position: absolute;
+            top: 52px;
+            width: 20px;
+        }
+
+        .taskhub .rectangle-1-zyHaWh {
+            background-color: var(--white);
+            height: 44px;
+            left: 302px;
+            position: absolute;
+            top: 130px;
+            width: 292px;
+        }
+
+        .taskhub .search-zyHaWh {
+            background-color: transparent;
+            color: var(--oxford-blue);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-s);
+            font-style: normal;
+            font-weight: 400;
+            height: auto;
+            left: 346px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 142px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .vector-zyHaWh {
+            height: 20px;
+            left: 316px;
+            top: 142px;
+            width: 20px;
+        }
+
+        .taskhub .rectangle-3-zyHaWh {
+            background-color: var(--white);
+            height: 44px;
+            left: 1239px;
+            position: absolute;
+            top: 125px;
+            width: 150px;
+        }
+
+        .taskhub .filter-zyHaWh {
+            background-color: transparent;
+            height: auto;
+            left: 1309px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 137px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .to-do-12-zyHaWh {
+            background-color: transparent;
+            height: auto;
+            left: 314px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 222px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .span0-1pvm7x {}
+
+        .taskhub .span1-1pvm7x {
+            color: var(--black);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 400;
+        }
+
+        .taskhub .span2-1pvm7x {
+            color: #a0a4a9;
+            font-weight: 400;
+        }
+
+        .taskhub .in-progress-32-zyHaWh {
+            background-color: transparent;
+            height: auto;
+            left: 454px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 222px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .span0-HJS0kC {}
+
+        .taskhub .span1-HJS0kC {
+            color: var(--black);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .taskhub .span2-HJS0kC {
+            color: #a0a0a0;
+            font-weight: 600;
+        }
+
+        .taskhub .completed-22-zyHaWh {
+            background-color: transparent;
+            height: auto;
+            left: 629px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 222px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .span0-gtoZyP {}
+
+        .taskhub .span1-gtoZyP {
+            color: var(--black);
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .taskhub .span2-gtoZyP {
+            color: #aaaaaa;
+            font-weight: 600;
+        }
+
+        .taskhub .overdue-2-zyHaWh {
+            background-color: transparent;
+            height: auto;
+            left: 814px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 222px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .span0-dFyg3Z {}
+
+        .taskhub .span1-dFyg3Z {
+            color: #aaaaaa;
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .taskhub .rectangle-4-zyHaWh {
+            background-color: var(--white);
+            height: 43px;
+            left: 959px;
+            position: absolute;
+            top: 213px;
+            width: 152px;
+        }
+
+        .taskhub .add-new-task-zyHaWh {
+            background-color: transparent;
+            height: auto;
+            left: 988px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 224px;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .x20th-march-2024-zyHaWh {
+            left: 353px;
+            top: 699px;
+        }
+
+        .taskhub .span0-0l9zDy {}
+
+        .taskhub .span1-0l9zDy {}
+
+        .taskhub .x20th-march-2024-DmwrQX {
+            left: 349px;
+            top: 470px;
+        }
+
+        .taskhub .span0-dMfmgd {}
+
+        .taskhub .span1-dMfmgd {}
+
+        .taskhub .x20th-march-2024-r8YKOI {
+            left: 353px;
+            top: 958px;
+        }
+
+        .taskhub .span0-gNq2zM {}
+
+        .taskhub .span1-gNq2zM {}
+
+        .taskhub .x20th-march-2024-FcVQ9C {
+            left: 696px;
+            top: 952px;
+        }
+
+        .taskhub .span0-RjPO7M {}
+
+        .taskhub .span1-RjPO7M {}
+
+        .taskhub .x20th-march-2024-bkOtl2 {
+            left: 694px;
+            top: 698px;
+        }
+
+        .taskhub .span0-QSK5on {}
+
+        .taskhub .span1-QSK5on {}
+
+        .taskhub .x20th-march-2024-lTbxz3 {
+            left: 694px;
+            top: 470px;
+        }
+
+        .taskhub .span0-nUbBNa {}
+
+        .taskhub .span1-nUbBNa {}
+
+        .taskhub .x15th-march-2024-zyHaWh {
+            left: 1045px;
+            top: 698px;
+        }
+
+        .taskhub .span0-R8ox9d {}
+
+        .taskhub .span1-R8ox9d {}
+
+        .taskhub .x15th-march-2024-DmwrQX {
+            left: 1045px;
+            top: 951px;
+        }
+
+        .taskhub .span0-Gpyspf {}
+
+        .taskhub .span1-Gpyspf {}
+
+        .taskhub .x15th-march-2024-r8YKOI {
+            left: 1042px;
+            top: 466px;
+        }
+
+        .taskhub .span0-wiwvMc {}
+
+        .taskhub .span1-wiwvMc {}
+
+        .taskhub .group-4-zyHaWh {
+            background-color: transparent;
+            height: 40px;
+            left: 319px;
+            position: absolute;
+            top: 583px;
+            width: 271px;
+        }
+
+        .taskhub .linked-in-optimizati-72nn0H {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-6OtLfJ {}
+
+        .taskhub .span1-6OtLfJ {}
+
+        .taskhub .group-12-zyHaWh {
+            background-color: transparent;
+            height: 40px;
+            left: 317px;
+            position: absolute;
+            top: 350px;
+            width: 271px;
+        }
+
+        .taskhub .sandbox-ux-redisign-lhOnEb {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-x1csY3 {}
+
+        .taskhub .span1-x1csY3 {}
+
+        .taskhub .group-5-zyHaWh {
+            background-color: transparent;
+            height: 40px;
+            left: 333px;
+            position: absolute;
+            top: 848px;
+            width: 271px;
+        }
+
+        .taskhub .logo-design-this-pro-GG45ym {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-qkB4d3 {}
+
+        .taskhub .span1-qkB4d3 {}
+
+        .taskhub .group-6-zyHaWh {
+            background-color: transparent;
+            height: 57px;
+            left: 678px;
+            position: absolute;
+            top: 838px;
+            width: 279px;
+        }
+
+        .taskhub .cv-writing-this-proj-Y5A8K6 {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-9JJ6Pd {}
+
+        .taskhub .span1-9JJ6Pd {}
+
+        .taskhub .group-7-zyHaWh {
+            background-color: transparent;
+            height: 57px;
+            left: 676px;
+            position: absolute;
+            top: 584px;
+            width: 279px;
+        }
+
+        .taskhub .business-plan-this-p-r6DLox {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-iswN7r {}
+
+        .taskhub .span1-iswN7r {}
+
+        .taskhub .group-11-zyHaWh {
+            background-color: transparent;
+            height: 57px;
+            left: 678px;
+            position: absolute;
+            top: 352px;
+            width: 279px;
+        }
+
+        .taskhub .social-media-managem-2BcNmR {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-rPH9IJ {}
+
+        .taskhub .span1-rPH9IJ {}
+
+        .taskhub .group-8-zyHaWh {
+            background-color: transparent;
+            height: 57px;
+            left: 1027px;
+            position: absolute;
+            top: 584px;
+            width: 297px;
+        }
+
+        .taskhub .span0-u9rNFU {}
+
+        .taskhub .span1-u9rNFU {}
+
+        .taskhub .group-10-zyHaWh {
+            background-color: transparent;
+            height: 57px;
+            left: 1027px;
+            position: absolute;
+            top: 837px;
+            width: 302px;
+        }
+
+        .taskhub .printing-this-involv-217Al2 {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .span0-aEc5fI {}
+
+        .taskhub .span1-aEc5fI {}
+
+        .taskhub .group-9-zyHaWh {
+            background-color: transparent;
+            height: 57px;
+            left: 1024px;
+            position: absolute;
+            top: 352px;
+            width: 297px;
+        }
+
+        .taskhub .span0-zxIQye {}
+
+        .taskhub .span1-zxIQye {}
+
+        .taskhub .ellipse-19-zyHaWh {
+            background-color: var(--malachite);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 319px;
+            position: absolute;
+            top: 543px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-55-zyHaWh {
+            background-color: var(--malachite);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 319px;
+            position: absolute;
+            top: 312px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-24-zyHaWh {
+            background-color: var(--red);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 332px;
+            position: absolute;
+            top: 798px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-29-zyHaWh {
+            background-color: var(--malachite);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 678px;
+            position: absolute;
+            top: 798px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-34-zyHaWh {
+            background-color: var(--red);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 676px;
+            position: absolute;
+            top: 544px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-54-zyHaWh {
+            background-color: var(--red);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 678px;
+            position: absolute;
+            top: 312px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-39-zyHaWh {
+            background-color: #ebf00b;
+            border-radius: 13.5px;
+            height: 27px;
+            left: 1027px;
+            position: absolute;
+            top: 544px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-49-zyHaWh {
+            background-color: var(--red);
+            border-radius: 13.5px;
+            height: 27px;
+            left: 1027px;
+            position: absolute;
+            top: 797px;
+            width: 27px;
+        }
+
+        .taskhub .ellipse-44-zyHaWh {
+            background-color: #ebf00b;
+            border-radius: 13.5px;
+            height: 27px;
+            left: 1024px;
+            position: absolute;
+            top: 312px;
+            width: 27px;
+        }
+
+        .taskhub .line-4-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 328px;
+            object-fit: cover;
+            position: absolute;
+            top: 684px;
+            width: 274px;
+        }
+
+        .taskhub .line-12-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 328px;
+            object-fit: cover;
+            position: absolute;
+            top: 453px;
+            width: 274px;
+        }
+
+        .taskhub .line-5-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 340px;
+            object-fit: cover;
+            position: absolute;
+            top: 939px;
+            width: 274px;
+        }
+
+        .taskhub .line-6-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 687px;
+            object-fit: cover;
+            position: absolute;
+            top: 939px;
+            width: 274px;
+        }
+
+        .taskhub .line-7-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 685px;
+            object-fit: cover;
+            position: absolute;
+            top: 685px;
+            width: 274px;
+        }
+
+        .taskhub .line-11-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 685px;
+            object-fit: cover;
+            position: absolute;
+            top: 453px;
+            width: 274px;
+        }
+
+        .taskhub .line-8-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 1036px;
+            object-fit: cover;
+            position: absolute;
+            top: 685px;
+            width: 274px;
+        }
+
+        .taskhub .line-10-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 1036px;
+            object-fit: cover;
+            position: absolute;
+            top: 938px;
+            width: 274px;
+        }
+
+        .taskhub .line-9-zyHaWh {
+            background-color: transparent;
+            height: 1px;
+            left: 1033px;
+            object-fit: cover;
+            position: absolute;
+            top: 453px;
+            width: 274px;
+        }
+
+        .taskhub .ellipse-20-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 556px;
+            position: absolute;
+            top: 698px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-56-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 556px;
+            position: absolute;
+            top: 470px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-25-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 568px;
+            position: absolute;
+            top: 952px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-30-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 915px;
+            position: absolute;
+            top: 953px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-35-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 913px;
+            position: absolute;
+            top: 699px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-60-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 913px;
+            position: absolute;
+            top: 472px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-40-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1264px;
+            position: absolute;
+            top: 699px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-50-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1264px;
+            position: absolute;
+            top: 952px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-45-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1261px;
+            position: absolute;
+            top: 467px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-21-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 532px;
+            position: absolute;
+            top: 698px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-57-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 532px;
+            position: absolute;
+            top: 470px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-26-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 534px;
+            position: absolute;
+            top: 952px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-31-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 888px;
+            position: absolute;
+            top: 953px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-36-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 889px;
+            position: absolute;
+            top: 699px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-61-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 889px;
+            position: absolute;
+            top: 472px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-41-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1240px;
+            position: absolute;
+            top: 699px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-51-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1240px;
+            position: absolute;
+            top: 952px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-46-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1237px;
+            position: absolute;
+            top: 467px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-22-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 544px;
+            position: absolute;
+            top: 698px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-58-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 544px;
+            position: absolute;
+            top: 470px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-27-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 552px;
+            position: absolute;
+            top: 952px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-32-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 903px;
+            position: absolute;
+            top: 953px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-37-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 901px;
+            position: absolute;
+            top: 699px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-62-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 901px;
+            position: absolute;
+            top: 472px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-42-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1252px;
+            position: absolute;
+            top: 699px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-52-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1252px;
+            position: absolute;
+            top: 952px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-47-zyHaWh {
+            background-color: transparent;
+            height: 24px;
+            left: 1249px;
+            position: absolute;
+            top: 467px;
+            width: 24px;
+        }
+
+        .taskhub .ellipse-23-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 573px;
+            position: absolute;
+            top: 700px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-59-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 573px;
+            position: absolute;
+            top: 472px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-28-zyHaWh {
+            background-color: transparent;
+            height: 20px;
+            left: 585px;
+            position: absolute;
+            top: 954px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-33-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 931px;
+            position: absolute;
+            top: 955px;
+            transform: rotate(15.00deg);
+            width: 20px;
+        }
+
+        .taskhub .ellipse-38-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 930px;
+            position: absolute;
+            top: 701px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-63-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 930px;
+            position: absolute;
+            top: 474px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-43-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 1281px;
+            position: absolute;
+            top: 701px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-53-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 1281px;
+            position: absolute;
+            top: 954px;
+            width: 20px;
+        }
+
+        .taskhub .ellipse-48-zyHaWh {
+            background-color: var(--alto);
+            border-radius: 10px;
+            height: 20px;
+            left: 1278px;
+            position: absolute;
+            top: 469px;
+            width: 20px;
+        }
+
+        .taskhub .x5-zyHaWh {
+            left: 579px;
+            top: 701px;
+        }
+
+        .taskhub .x5-DmwrQX {
+            left: 579px;
+            top: 473px;
+        }
+
+        .taskhub .x5-r8YKOI {
+            left: 591px;
+            top: 954px;
+        }
+
+        .taskhub .x5-FcVQ9C {
+            left: 937px;
+            top: 955px;
+            transform: rotate(-1.83deg);
+        }
+
+        .taskhub .x5-bkOtl2 {
+            left: 936px;
+            top: 702px;
+        }
+
+        .taskhub .x5-lTbxz3 {
+            left: 936px;
+            top: 475px;
+        }
+
+        .taskhub .x5-eQBxFF {
+            left: 1287px;
+            top: 702px;
+        }
+
+        .taskhub .x5-nfBLxy {
+            left: 1287px;
+            top: 955px;
+        }
+
+        .taskhub .x5-K9dwSA {
+            left: 1284px;
+            top: 470px;
+        }
+
+        .taskhub .vector-DmwrQX {
+            height: 20px;
+            left: 1019px;
+            top: 470px;
+            width: 20px;
+        }
+
+        .taskhub .vector-r8YKOI {
+            height: 20px;
+            left: 325px;
+            top: 702px;
+            width: 20px;
+        }
+
+        .taskhub .vector-FcVQ9C {
+            height: 20px;
+            left: 327px;
+            top: 473px;
+            width: 20px;
+        }
+
+        .taskhub .vector-bkOtl2 {
+            height: 20px;
+            left: 669px;
+            top: 702px;
+            width: 20px;
+        }
+
+        .taskhub .vector-lTbxz3 {
+            height: 20px;
+            left: 669px;
+            top: 472px;
+            width: 20px;
+        }
+
+        .taskhub .vector-eQBxFF {
+            height: 20px;
+            left: 1023px;
+            top: 704px;
+            width: 20px;
+        }
+
+        .taskhub .vector-nfBLxy {
+            height: 20px;
+            left: 330px;
+            top: 961px;
+            width: 20px;
+        }
+
+        .taskhub .vector-K9dwSA {
+            height: 20px;
+            left: 675px;
+            top: 956px;
+            width: 20px;
+        }
+
+        .taskhub .vector-2MJaOM {
+            height: 20px;
+            left: 1023px;
+            top: 956px;
+            width: 20px;
+        }
+
+        .taskhub .vector-eW5CJs {
+            height: 18px;
+            left: 1264px;
+            top: 139px;
+            width: 18px;
+        }
+
+        .taskhub .vector-i5zJE0 {
+            height: 20px;
+            left: 967px;
+            top: 224px;
+            width: 16px;
+        }
+
+        .taskhub .branding-re-branding {
+            background-color: transparent;
+            height: auto;
+            left: 0px;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            top: 0px;
+            width: auto;
+        }
+
+        .taskhub .chart-bar-outline {
+            background-color: transparent;
+            height: 30px;
+            left: 41px;
+            position: absolute;
+            width: 30px;
+        }
+
+        .taskhub .span2 {
+            font-family: var(--font-family-sofia_sans);
+            font-size: var(--font-size-m);
+            font-style: normal;
+        }
+
+        .taskhub .vector {
+            background-color: transparent;
+            position: absolute;
+        }
+
+        .taskhub .x15th-march-2024 {
+            background-color: transparent;
+            height: auto;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .x20th-march-2024 {
+            background-color: transparent;
+            height: auto;
+            letter-spacing: 0.00px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        .taskhub .x5 {
+            background-color: transparent;
+            height: auto;
+            letter-spacing: 0.45px;
+            line-height: normal;
+            position: absolute;
+            text-align: left;
+            white-space: nowrap;
+            width: auto;
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Mulish&display=swap');
+
+        #anima-interface {
+            transition: all 0.5s ease-in-out;
+        }
+
+        #anima-watermark {
+            transition: all 0.5s ease-in-out;
+            display: none;
+        }
+
+        #anima-watermark-link {
+            position: fixed;
+            bottom: 20px;
+            height: 30px;
+            border-radius: 1000px;
+            background: #3B3B3B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            transition: width 0.25s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 16px 8px 11px;
+            font-family: Mulish, sans-serif;
+            font-size: 12px;
+        }
+
+        #anima-watermark-link .text {
+            margin-left: 6px;
+        }
+
+        .omniview-anima-action-links .link {
+            height: 30px;
+            width: 30px;
+            border-radius: 1000px;
+            background: #3B3B3B;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            user-select: none;
+            transition: width 0.25s cubic-bezier(0.175, 0.885, 0.320, 1.275);
+            text-decoration: none;
+            color: #fff;
+        }
+
+        .omniview-anima-action-links #comment-link .text,
+        .omniview-anima-action-links #code-link .text {
+            display: none;
+            font-size: 12px;
+            margin-right: 5px;
+        }
+
+        .omniview-anima-action-links #comment-link:hover,
+        .omniview-anima-action-links #code-link:hover {
+            width: 105px;
+        }
+
+        .omniview-anima-action-links #comment-link.pop-active,
+        .omniview-anima-action-links #code-link.pop-active {
+            width: 105px;
+            background: #FF6250;
+        }
+
+        .omniview-anima-action-links #comment-link.pop-active .text,
+        .omniview-anima-action-links #code-link.pop-active .text {
+            display: block
+        }
+
+        .omniview-anima-action-links #comment-link:hover .text,
+        .omniview-anima-action-links #code-link:hover .text {
+            display: block;
+        }
+
+        .link.navigation {
+            position: fixed;
+            left: 50%;
+            transform: translateX(-50%);
+            width: auto;
+            height: 32px;
+            color: #fff;
+            font-size: 12px;
+            cursor: default;
+            padding: 0 5px;
+        }
+
+        .link.navigation .icon {
+            margin: 0 6px;
+            fill: none;
+            stroke: currentColor;
+            cursor: pointer;
+        }
+
+        .link.navigation .icon.disabled {
+            opacity: 0.5;
+            cursor: default;
+        }
+
+
+        .link.navigation .home-icon {
+            margin-left: 6px;
+            fill: currentColor;
+            stroke: currentColor;
+            cursor: pointer;
+        }
+
+        .omniview-anima-action-links .restart {
+            height: 30px;
+            padding: 0 12px;
+            background: #3B3B3B;
+            border-radius: 1000px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: #f1f1f1;
+            font-size: 12px;
+        }
+
+        .omniview-anima-action-links {
+            display: flex;
+            align-items: center;
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            font-family: Mulish, sans-serif;
+            transition: all 0.5s ease-in-out;
+            opacity: 1;
+        }
+
+        .omniview-anima-action-links>*+* {
+            margin-right: 0;
+            margin-left: 10px;
+        }
+
+        .idle {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        #popoverOpener {
+            position: absolute;
+            left: 50%;
+            margin-left: -10vw;
+            text-align: center;
+            top: 45vh;
+            width: 20vw;
+        }
+
+
+        .popover {
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1060;
+            display: none;
+            font-family: "sans-serif";
+            font-size: 14px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 10px rgba(0, 0, 0, .2);
+        }
+
+        .popover.top {
+            margin-top: -12px
+        }
+
+        .popover.right {
+            margin-left: 10px
+        }
+
+        .popover.bottom {
+            margin-top: 10px
+        }
+
+        .popover.left {
+            margin-left: -10px
+        }
+
+        .popover-title {
+            padding: 8px 14px;
+            margin: 0;
+            font-size: 14px;
+            background-color: #f7f7f7;
+            border-bottom: 1px solid #ebebeb;
+            border-radius: 5px 5px 0 0
+        }
+
+        .popover-content {
+            height: 100%;
+            width: 100%;
+            display: flex;
+            overflow: hidden;
+            font-family: Mulish, sans-serif;
+        }
+
+
+
+        .popover>.arrow,
+        .popover>.arrow:after {
+            position: absolute;
+            display: block;
+            width: 0;
+            height: 0;
+            border-color: transparent;
+            border-style: solid
+        }
+
+        .popover>.arrow {
+            border-width: 11px
+        }
+
+        .popover>.arrow:after {
+            content: "";
+            border-width: 10px
+        }
+
+        .popover.top>.arrow {
+            bottom: -11px;
+            left: 50%;
+            margin-left: -11px;
+            border-top-color: #999;
+            border-top-color: rgba(0, 0, 0, .25);
+            border-bottom-width: 0
+        }
+
+        .popover.top>.arrow:after {
+            bottom: 1px;
+            margin-left: -10px;
+            content: " ";
+            border-top-color: #fff;
+            border-bottom-width: 0
+        }
+
+        .popover.right>.arrow {
+            top: 50%;
+            left: -11px;
+            margin-top: -11px;
+            border-right-color: #999;
+            border-right-color: rgba(0, 0, 0, .25);
+            border-left-width: 0
+        }
+
+        .popover.right>.arrow:after {
+            bottom: -10px;
+            left: 1px;
+            content: " ";
+            border-right-color: #fff;
+            border-left-width: 0
+        }
+
+        .popover.bottom>.arrow {
+            top: -11px;
+            left: 50%;
+            margin-left: -11px;
+            border-top-width: 0;
+            border-bottom-color: #999;
+            border-bottom-color: rgba(0, 0, 0, .25)
+        }
+
+        .popover.bottom>.arrow:after {
+            top: 1px;
+            margin-left: -10px;
+            content: " ";
+            border-top-width: 0;
+            border-bottom-color: #fff
+        }
+
+        .popover.left>.arrow {
+            top: 50%;
+            right: -11px;
+            margin-top: -11px;
+            border-right-width: 0;
+            border-left-color: #999;
+            border-left-color: rgba(0, 0, 0, .25)
+        }
+
+        .popover.left>.arrow:after {
+            right: 1px;
+            bottom: -10px;
+            content: " ";
+            border-right-width: 0;
+            border-left-color: #fff
+        }
+
+
+
+        #anima-comment-popover,
+        #anima-code-popover {
+            background: #333333;
+            color: #fff;
+        }
+
+        #anima-comment-popover.top>.arrow,
+        #anima-comment-popover.top>.arrow:after,
+        #anima-code-popover.top>.arrow:after,
+        #anima-code-popover.top>.arrow {
+            border-top-color: #333;
+        }
+
+        #anima-comment-popover .btn,
+        #anima-code-popover .btn {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            padding: 6px 20px;
+            background: #FF6250;
+            color: #fff;
+            border-radius: 100px;
+            width: max-content;
+            text-decoration: none;
+        }
+
+        @media screen and (max-width: 550px) {
+            #anima-watermark-link {
+                padding: 6px !important;
+            }
+
+            #anima-watermark-link .text {
+                display: none !important;
+            }
+        }
+
+        body {
+            margin: 0px;
+            background: rgb(241, 244, 251);
+            overflow-x: hidden;
+            text-decoration: none;
+        }
+
+        body a {
+            color: #000000;
+        }
