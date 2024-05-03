@@ -384,6 +384,7 @@
             position: absolute;
             top: 907px;
             width: 24px;
+            cursor: pointer;
         }
 
         .taskhub .moon-outline-tJqh1S {
@@ -393,6 +394,7 @@
             position: absolute;
             top: 909px;
             width: 24px;
+            cursor: pointer;
         }
 
         .taskhub .title-tJqh1S {
@@ -606,6 +608,7 @@
             left: 1010px;
             top: 37px;
             width: 25px;
+            cursor: pointer;
         }
 
         .taskhub .ellipse-2-rNEU9r {
